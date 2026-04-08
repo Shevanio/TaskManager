@@ -7,7 +7,8 @@ def print_menu():
     print ("2. Complete Task")
     print ("3. List Tasks")
     print ("4. Delete Task")
-    print ("5. Exit")
+    print ("5. Update Tasks")
+    print ("6. Exit")
 
 def main():
     manager = TaskManager()
@@ -15,25 +16,31 @@ def main():
     while True:
         print_menu()
 
-        choice = input("Enter your choice: ")
+        try:
+            choice = int(input("Enter your choice: "))
 
-        match choice:
-            case "1":
-                description = input("Enter task description: ")
-                manager.add_task(description)
-            case "2":
-                id = int(input("Enter task id to complete: "))
-                manager.complete_task(id)
-            case "3":
-                manager.list_tasks()
-            case "4":
-                id = int(input("Enter task id to delete: "))
-                manager.delete_task(id)
-            case "5":
-                print("Exiting...")
-                break
-            case _:
-                print("Invalid choice. Please try again.")
+            match choice:
+                case 1:
+                    description = input("Enter task description: ")
+                    manager.add_task(description)
+                case 2:
+                    id = int(input("Enter task id to complete: "))
+                    manager.complete_task(id)
+                case 3:
+                    manager.list_tasks()
+                case 4:
+                    id = int(input("Enter task id to delete: "))
+                    manager.delete_task(id)
+                case 5:
+                    manager.update_tasks()
+                case 6:
+                    print("Exiting...")
+                    break
+                case _:
+                    print("Invalid choice. Please try again.")
+
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
 if __name__ == "__main__":
     main()
