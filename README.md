@@ -1,149 +1,149 @@
 # 📋 TaskManager
 
-Un gestor de tareas moderno con integración de IA para desglozar automáticamente tareas complejas en subtareas simples y accionables.
+A modern task manager with AI integration to automatically break complex tasks down into simple, actionable subtasks.
 
-## ✨ Características
+## ✨ Features
 
-- **Gestión de tareas completa**: Agregar, listar, completar y eliminar tareas
-- **Descomposición inteligente con IA**: Usa OpenAI para desglozar tareas complejas en subtareas
-- **Persistencia de datos**: Almacenamiento automático en JSON
-- **Interfaz interactiva**: Menú CLI intuitivo para operaciones
-- **Estado de tareas**: Marca tareas como completadas con indicador visual (✅)
+- **Complete task management**: Add, list, complete, and delete tasks
+- **Smart AI decomposition**: Uses OpenAI to break complex tasks into subtasks
+- **Data persistence**: Automatic JSON storage
+- **Interactive interface**: Intuitive CLI menu for operations
+- **Task status tracking**: Mark tasks as completed with a visual indicator (✅)
 
-## 🚀 Inicio Rápido
+## 🚀 Quick Start
 
-### Requisitos previos
+### Prerequisites
 
 - Python 3.9+
-- pip (gestor de paquetes de Python)
-- Clave de API de OpenAI (para funcionalidades de IA)
+- pip (Python package manager)
+- OpenAI API key (for AI features)
 
-### Instalación
+### Installation
 
-1. **Clonar el repositorio**
+1. **Clone the repository**
 ```bash
 git clone <repository-url>
 cd TaskManager
 ```
 
-2. **Crear entorno virtual**
+2. **Create a virtual environment**
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # En Windows: .venv\Scripts\activate
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-3. **Instalar dependencias**
+3. **Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **Configurar variables de entorno**
+4. **Configure environment variables**
 ```bash
 cp .env.example .env
-# Edita .env y agrega tu OPENAI_API_KEY
+# Edit .env and add your OPENAI_API_KEY
 ```
 
-### Uso
+### Usage
 
 ```bash
 python main.py
 ```
 
-Se abrirá un menú interactivo con las siguientes opciones:
+An interactive menu will open with the following options:
 
 ```
  --- Task Manager --- 
 
-1. Add Task                    # Agregar una tarea simple
-2. Add complex Task (using AI) # Desglozar tarea con IA
-3. Complete Task              # Marcar tarea como completada
-4. List Tasks                 # Ver todas las tareas
-5. Delete Task                # Eliminar una tarea
-6. Update Tasks               # Recargar tareas desde archivo
-7. Exit                       # Salir
+1. Add Task                    # Add a simple task
+2. Add complex Task (using AI) # Break down a task with AI
+3. Complete Task               # Mark a task as completed
+4. List Tasks                  # View all tasks
+5. Delete Task                 # Delete a task
+6. Update Tasks                # Reload tasks from file
+7. Exit                        # Exit
 ```
 
-## 📖 Ejemplos de uso
+## 📖 Usage Examples
 
-### Agregar una tarea simple
+### Add a simple task
 ```
 Enter your choice: 1
-Enter task description: Comprar leche
-Added task: [] #1 Comprar leche
+Enter task description: Buy milk
+Added task: [] #1 Buy milk
 ```
 
-### Desglozar una tarea compleja con IA
+### Break down a complex task with AI
 ```
 Enter your choice: 2
-Enter complex task description: Organizar una conferencia tecnológica
+Enter complex task description: Organize a tech conference
 ```
 
-La IA desglozará esto en subtareas como:
-- Seleccionar ubicación y fecha
-- Confirmar speakers y agenda
-- Organizar logística y catering
-- Promoción y registro de asistentes
+The AI will break it down into subtasks such as:
+- Select venue and date
+- Confirm speakers and agenda
+- Organize logistics and catering
+- Promote the event and manage attendee registration
 
-Estas se agregarán automáticamente como tareas.
+These will be added automatically as tasks.
 
-### Listar tareas
+### List tasks
 ```
 Enter your choice: 4
-[] #1 Comprar leche
-[✅] #2 Seleccionar ubicación y fecha
-[] #3 Confirmar speakers y agenda
+[] #1 Buy milk
+[✅] #2 Select venue and date
+[] #3 Confirm speakers and agenda
 ```
 
-### Completar una tarea
+### Complete a task
 ```
 Enter your choice: 3
 Enter task id to complete: 1
-Completed task: [✅] #1 Comprar leche
+Completed task: [✅] #1 Buy milk
 ```
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Project Structure
 
 ```
 TaskManager/
-├── main.py                    # Punto de entrada e interfaz CLI
-├── task_manager.py            # Clase TaskManager y Task
-├── ai_service.py              # Integración con OpenAI
-├── tasks.json                 # Almacenamiento de tareas (generado)
-├── requirements.txt           # Dependencias del proyecto
-├── test_comprehensive.py      # Suite de tests completa
-├── test.py                    # Tests básicos
-└── README.md                  # Este archivo
+├── main.py                    # Entry point and CLI interface
+├── task_manager.py            # TaskManager and Task classes
+├── ai_service.py              # OpenAI integration
+├── tasks.json                 # Task storage (generated)
+├── requirements.txt           # Project dependencies
+├── test_comprehensive.py      # Full test suite
+├── test.py                    # Basic tests
+└── README.md                  # This file
 ```
 
 ## 🔌 API
 
-### Clase Task
+### Task class
 
 ```python
 task = Task(id, description, completed=False)
 
-# Atributos
-task.id           # int: ID único de la tarea
-task.description  # str: Descripción de la tarea
-task.completed    # bool: Estado de completación
+# Attributes
+task.id           # int: Unique task ID
+task.description  # str: Task description
+task.completed    # bool: Completion status
 
-# Métodos
-str(task)         # str: Representación con emoji de estado
+# Methods
+str(task)         # str: String representation with status emoji
 ```
 
-### Clase TaskManager
+### TaskManager class
 
 ```python
 manager = TaskManager()
 
-# Métodos
-manager.add_task(description)          # Task: Agrega una nueva tarea
-manager.complete_task(id)              # Task|None: Marca como completada
-manager.list_tasks()                   # List[Task]: Lista todas las tareas
-manager.delete_task(id)                # Task|None: Elimina una tarea
-manager.save_tasks()                   # None: Guarda en JSON
-manager.load_tasks()                   # None: Carga desde JSON
-manager.update_tasks()                 # None: Recarga desde archivo
+# Methods
+manager.add_task(description)          # Task: Add a new task
+manager.complete_task(id)              # Task|None: Mark as completed
+manager.list_tasks()                   # List[Task]: List all tasks
+manager.delete_task(id)                # Task|None: Delete a task
+manager.save_tasks()                   # None: Save to JSON
+manager.load_tasks()                   # None: Load from JSON
+manager.update_tasks()                 # None: Reload from file
 ```
 
 ### AI Service
@@ -151,134 +151,134 @@ manager.update_tasks()                 # None: Recarga desde archivo
 ```python
 from ai_service import create_simple_tasks
 
-# Desgloza una tarea en subtareas
-subtasks = create_simple_tasks("Tarea compleja aquí")
-# Retorna: List[str] de subtareas o error
+# Break a task down into subtasks
+subtasks = create_simple_tasks("Complex task here")
+# Returns: List[str] of subtasks or an error
 
-# Ejemplo
-subtasks = create_simple_tasks("Planificar un viaje a Europa")
+# Example
+subtasks = create_simple_tasks("Plan a trip to Europe")
 for subtask in subtasks:
     print(subtask)
 ```
 
-**Parámetros de la API OpenAI usados:**
-- Modelo: `gpt-3.5-turbo`
-- Temperatura: `0.7` (creatividad moderada)
-- Max tokens: `300` (subtareas concisas)
+**OpenAI API parameters used:**
+- Model: `gpt-3.5-turbo`
+- Temperature: `0.7` (moderate creativity)
+- Max tokens: `300` (concise subtasks)
 
 ## 🧪 Testing
 
-El proyecto incluye una suite completa de tests con **30 casos de prueba** que cubren:
+The project includes a full test suite with **30 test cases** covering:
 
-### Ejecutar todos los tests
+### Run all tests
 ```bash
 python -m unittest test_comprehensive -v
 ```
 
-### Tipos de tests incluidos
+### Included test types
 
-**Pruebas unitarias:**
-- Creación y representación de tareas
-- Operaciones CRUD de TaskManager
-- Persistencia en JSON
-- Manejo de errores
-- Integración con OpenAI
+**Unit tests:**
+- Task creation and representation
+- TaskManager CRUD operations
+- JSON persistence
+- Error handling
+- OpenAI integration
 
-**Pruebas de integración:**
-- Workflow completo con IA
-- Ciclo de vida de tareas
+**Integration tests:**
+- Full AI workflow
+- Task lifecycle
 
-## ⚙️ Configuración
+## ⚙️ Configuration
 
-### Variables de entorno (.env)
+### Environment variables (.env)
 
 ```env
-OPENAI_API_KEY=tu_clave_api_aqui
+OPENAI_API_KEY=your_api_key_here
 ```
 
-**Nota:** Nunca comitas el archivo `.env` con tu clave real.
+**Note:** Never commit the `.env` file with your real key.
 
-### Archivo de almacenamiento (tasks.json)
+### Storage file (tasks.json)
 
-Formato de almacenamiento:
+Storage format:
 ```json
 [
     {
         "id": 1,
-        "description": "Comprar leche",
+        "description": "Buy milk",
         "completed": false
     },
     {
         "id": 2,
-        "description": "Estudiar Python",
+        "description": "Study Python",
         "completed": true
     }
 ]
 ```
 
-## 🐛 Manejo de Errores
+## 🐛 Error Handling
 
-- **Clave API no configurada**: Se lanza `ValueError` si `OPENAI_API_KEY` no existe
-- **API no disponible**: Se retorna un mensaje de error en lugar de fallar
-- **ID de tarea no encontrado**: Operaciones retornan `None` silenciosamente
-- **Archivo corrompido**: Se inicia con lista vacía
+- **API key not configured**: Raises `ValueError` if `OPENAI_API_KEY` is missing
+- **API unavailable**: Returns an error message instead of crashing
+- **Task ID not found**: Operations return `None` silently
+- **Corrupted file**: Starts with an empty list
 
-## 📋 Requisitos del Proyecto
+## 📋 Project Requirements
 
 ```
 openai>=1.0.0
 python-dotenv>=0.19.0
 ```
 
-Instala con:
+Install with:
 ```bash
 pip install -r requirements.txt
 ```
 
-## 🔐 Seguridad
+## 🔐 Security
 
-- ⚠️ Nunca hardcodees tu API key
-- ⚠️ Usa `.env` y nunca lo comitas
-- ⚠️ Limita permisos de `tasks.json` si contiene datos sensibles
+- ⚠️ Never hardcode your API key
+- ⚠️ Use `.env` and never commit it
+- ⚠️ Restrict `tasks.json` permissions if it contains sensitive data
 
-## 🤝 Contribuciones
+## 🤝 Contributing
 
-Para contribuir al proyecto:
+To contribute to the project:
 
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📝 Notas de Desarrollo
+## 📝 Development Notes
 
-### Estructura interna de TaskManager
+### Internal TaskManager structure
 
-- Las tareas se cargan en memoria al iniciar
-- Se persisten en `tasks.json` después de cada operación
-- IDs se auto-incrementan automáticamente
-- El estado se mantiene entre sesiones
+- Tasks are loaded into memory on startup
+- They are persisted to `tasks.json` after each operation
+- IDs are auto-incremented automatically
+- State is preserved between sessions
 
-### Mejoras futuras
+### Future improvements
 
-- [ ] Categorías y tags para tareas
-- [ ] Fechas de vencimiento
-- [ ] Prioridades
-- [ ] Subtareas anidadas
-- [ ] Base de datos (SQLite/PostgreSQL)
-- [ ] API REST
-- [ ] Interfaz web
-- [ ] Soporte para múltiples usuarios
+- [ ] Categories and tags for tasks
+- [ ] Due dates
+- [ ] Priorities
+- [ ] Nested subtasks
+- [ ] Database support (SQLite/PostgreSQL)
+- [ ] REST API
+- [ ] Web interface
+- [ ] Multi-user support
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está bajo la licencia MIT.
+This project is licensed under the MIT License.
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
-Desarrollado como herramienta de demostración de gestión de tareas con IA.
+Developed as a demonstration tool for AI-assisted task management.
 
 ---
 
-**¿Preguntas?** Revisa los tests en `test_comprehensive.py` para ver más ejemplos de uso.
+**Questions?** Check the tests in `test_comprehensive.py` to see more usage examples.
